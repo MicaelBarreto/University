@@ -20,6 +20,8 @@ class CreateStudentsTable extends Migration
             $table->string('RG');
             $table->string('address');
             $table->string('cellphone');
+            $table->integer('id_user')->unsigned();
+            $table->foreign('id_user')->references('id')->on('users');
             $table->timestamps();
         });
     }
