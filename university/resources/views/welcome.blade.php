@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>UV - Home</title>
+        <title>University - Home</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -19,10 +19,6 @@
                 font-weight: 100;
                 height: 100vh;
                 margin: 0;
-            }
-
-            html, body, header{
-                display:flex;
             }
 
             .full-height {
@@ -68,38 +64,29 @@
             }
         </style>
     </head>
-    <body>
-        <header>
-            <div>
-                <h1>Universidade de Videira</h1>
-                <ul>
-                    <li>Home</li>
-                    <li>Cursos</li>
-                </ul>
-            </div>
-            <div class="flex-center position-ref full-height">
-                @if (Route::has('login'))
-                    <div class="top-right links">
-                        @auth
-                            <a href="{{ url('/home') }}">Home</a>
+    <body>  
+        <div class="flex-center position-ref full-height">
+            @if (Route::has('login'))
+                <div class="top-right links">
+                    @auth
+                        <a href="{{ url('/home') }}">Home</a>
                         @else
                             <a href="{{ route('login') }}">Login</a>
                             <a href="{{ route('register') }}">Register</a>
                         @endauth
                     </div>
                 @endif
-        </header>
+
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    University
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="https://laravel.com/docs">Courses</a>
+                    <a href="https://laracasts.com">Student Section</a>
+                    <a href="https://laravel-news.com">Admin Section</a>
+                    <a href="https://github.com/MicaelPlayerBr">GitHub</a>
                 </div>
             </div>
         </div>

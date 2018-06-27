@@ -1,0 +1,1 @@
+Resgistration of the Student. as the admin can register too 
