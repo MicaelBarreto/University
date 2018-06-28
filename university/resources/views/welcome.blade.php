@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Courses</a>
+                    <a href="/courses">Courses</a>
                     <a href="https://laracasts.com">Student Section</a>
                     <a href="https://laravel-news.com">Admin Section</a>
                     <a href="https://github.com/MicaelPlayerBr">GitHub</a>
