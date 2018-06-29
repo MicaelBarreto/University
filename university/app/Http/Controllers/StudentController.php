@@ -25,8 +25,7 @@ class StudentController extends Controller
 
     public function create() 
     {
-        $user = User::all();
-        return view('student/register', ['users' => $user]);
+        return view('student/register');
     }
 
     public function store(Request $request) 
@@ -37,6 +36,7 @@ class StudentController extends Controller
         $p->RG = $request->input('RG');
         $p->address = $request->input('address');
         $p->cellphone = $request->input('cellphone');
+        $p->id_user = $request->input('user_id');
         
         if ($p->save()) {
             \Session::flash('status', 'Student Registred With Sucess');

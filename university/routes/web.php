@@ -23,6 +23,17 @@ Route::get('/admin', 'AdminController@admin')
     ->middleware('is_admin')    
     ->name('admin');
 
-Route::get('/courses', 'IndexCourseController@index')->name('courses');
+Route::get('/courses', 'CourseController@index')->name('courses');
 
-Route::get('/student', 'StudentController@index')->name('students');
+Route::get('/student', 'StudentController@index')->name('student');
+
+Route::get('/student/courses', 'CourseController@StudentIndex')->name('student/course');
+
+Route::get('/student/register', 'StudentController@create')->name('student/register');
+
+Route::post('/store', 'StudentController@store')->name('store');
+
+//Route::get('/student/register', function () {
+ //   return view('/student.register');
+//});
+
