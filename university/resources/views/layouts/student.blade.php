@@ -42,6 +42,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/student/register') }}">{{ __('Registration') }}</a>
+                            <input type=hidden name="user_id" value=" {{ Auth::user()->id }}"> 
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/student/enrollment') }}">{{ __('Enrollment') }}</a>

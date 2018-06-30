@@ -17,8 +17,7 @@ class StudentController extends Controller
     public function index()
     {
 
-        $student = DB::table('students')->join('users', 'students.id_user', '=', 'users.id')
-            ->select('students.id','students.name' ,'students.CPF', 'students.RG', 'students.address', 'students.cellphone')->get();
+        $student = DB::table('students')->select('students.id','students.name' ,'students.CPF', 'students.RG', 'students.address', 'students.cellphone')->get();
 
         return view('student/index', ['students' => $student]);
     }
@@ -47,11 +46,26 @@ class StudentController extends Controller
         }
     }
 
-    public function edit($id) {
-        $student = Student::findOrFail($id);
-        $User = User::all();
+    //public function edit($id) {
+        //$student = Student::findOrFail($id);
 
-        return view('student.edit', ['students' => $student] ,['users' => $User]);
+       // return view('student.edit', ['students' => $student]);
+   // }
+
+    public function register(Request $request) {
+       
+        $p = $request->input('user_id');
+        $pid = User::find($p);
+
+        $id = DB::table('students')->select('students.id')->where('students.id_user', $pid)->first();
+        $student = Student::findOrFail($id);
+
+        if($id){
+            return view('student.edit', ['students' => $student]);
+        }else{
+            return view('/student.register');
+        }
+        
     }
 
     public function delete($id) {

@@ -29,9 +29,13 @@ Route::get('/student', 'StudentController@index')->name('student');
 
 Route::get('/student/courses', 'CourseController@StudentIndex')->name('student/course');
 
-Route::get('/student/register', 'StudentController@create')->name('student/register');
+Route::get('/student/register', 'StudentController@register')->name('student/register');
 
 Route::post('/store', 'StudentController@store')->name('store');
+
+//Route::get('/student/edit', 'StudentController@edit')->name('edit');
+
+Route::post('/student/update', 'StudentController@update')->name('update');
 
 //Route::get('/student/register', function () {
  //   return view('/student.register');
