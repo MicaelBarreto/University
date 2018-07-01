@@ -12,6 +12,6 @@ class Course extends Model
 
     public function course()
     {
-        return $this->belongsTo('App\Enrollment');
+        return $this->hasMany('App\Enrollment');
     }
 }

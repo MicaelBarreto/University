@@ -12,12 +12,12 @@ class Enrollment extends Model
 
     public function enrollStudent()
     {
-        return $this->hasMany('App\Student');
+        return $this->hasOne('App\Student');
     }
 
     public function enrollCourse()
     {
-        return $this->hasMany('App\Course');
+        return $this->hasOne('App\Course');
     }
 
     

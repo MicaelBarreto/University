@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Course;
 use App\Student;
+use App\Enrollment;
 
 class AdminController extends Controller
 {
@@ -78,8 +79,106 @@ class AdminController extends Controller
         $p = Course::findOrFail($id);
         $p->delete();
 
-        \Session::flash('status', 'Student Deleted With Success');
+        \Session::flash('status', 'Course Deleted With Success');
         return redirect('/admin/courses');
     }
+
+    public function enrollmentIndex()
+    {
+
+        $enrollment = DB::table('enrollments')
+            ->join('students', 'enrollments.id_student', '=', 'students.id')
+            ->join('courses', 'enrollments.id_course', '=', 'courses.id')
+            ->select('courses.name as course_name', 'students.name as student_name', 'enrollments.*')->get();
+
+
+        return view('admin/enrollments.index', ['enrollment' => $enrollment]);
+    }
+
+    public function enrollmentNew()
+    {
+
+        $courses = DB::table('courses')->select('*')->get();
+        $students = DB::table('students')->select('*')->get();
+
+        return view('admin/enrollments.new', ['courses' => $courses], ['students' => $students]);
+    }
+
+    public function enrollmentStore(Request $request) 
+    {
+        $p = new Enrollment;
+        $p->id_student = $request->input('id_student');
+        $p->authorization = 1;
+        $p->id_course = $request->input('id_course');
+        
+        if ($p->save()) {
+            \Session::flash('status', 'Enrollment Registred With Sucess');
+            return redirect('/admin/enrollment');
+        } else {
+            \Session::flash('status', 'There Was an Error');
+            return view('admin/enrollments/new');
+        }
+    }
+
+
+    public function enrollmentAuthorize()
+    {
+        $p = Course::findOrFail($id);
+         $p->authorization = 1;
+            
+        if ($p->save()) {
+            \Session::flash('status', 'Enrollment Authorizade With Success');
+            return redirect('/admin/enrollment');
+        } else {
+            \Session::flash('status', 'There was an Error');
+                return view('admin/courses/edit', ['enrollments' => $p]);
+        }
+ 
+    }
+
+    public function enrollmentEdit($id) 
+    {
+        $row = DB::table('enrollments')
+            ->join('students', 'enrollments.id_student', '=', 'students.id')
+            ->join('courses', 'enrollments.id_course', '=', 'courses.id')
+            ->select('courses.name as course_name', 'students.name as student_name', 'enrollments.*')
+            ->where('enrollments.id', '=', $id)->get();
+
+        $courses = DB::table('courses')->select('*')->get();
+        $students = DB::table('students')->select('*')->get();
+
+        
+
+
+        return view('admin/enrollments.edit', ['row' => $row, 'courses' => $courses, 'students' => $students]);
+    }
+
+    public function enrollmentUpdate(Request $request) 
+    {
+        $id = $request->input('id');
+        $p = Enrollment::findOrFail($id);
+        $p->id_student = $request->input('id_student');
+        $p->id_course = $request->input('id_course');
+        $p->authorization = 1;
+        
+        if ($p->save()) {
+            \Session::flash('status', 'Enrollment Update With Success');
+            return redirect('/admin/enrollment');
+        } else {
+            \Session::flash('status', 'There was an Error');
+            return view('admin/enrollments/edit', ['enrollments' => $p]);
+        }
+    }
+
+    public function enrollmentDelete($id) 
+    {
+        $p = Enrollment::findOrFail($id);
+        $p->delete();
+
+        \Session::flash('status', 'Enrollment Deleted With Success');
+        return redirect('/admin/enrollment');
+    }
+
+
 
 }
