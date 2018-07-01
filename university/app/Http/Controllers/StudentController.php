@@ -24,7 +24,7 @@ class StudentController extends Controller
 
     public function create() 
     {
-        return view('student/register');
+        return view('student/registration');
     }
 
     public function store(Request $request) 
@@ -42,7 +42,7 @@ class StudentController extends Controller
             return redirect('/student');
         } else {
             \Session::flash('status', 'There Was an Error');
-            return view('student.register');
+            return view('student.registration');
         }
     }
 
@@ -55,15 +55,18 @@ class StudentController extends Controller
     public function register(Request $request) {
        
         $p = $request->input('user_id');
-        $pid = User::find($p);
 
-        $id = DB::table('students')->select('students.id')->where('students.id_user', $pid)->first();
-        $student = Student::findOrFail($id);
-
+        $id = DB::table('students')->select('students.id')->where('students.id_user', '=' ,$p)->get();
+        
+        echo $p;
+        echo $id;
+        dd($id);
+        
         if($id){
-            return view('student.edit', ['students' => $student]);
+            $student = Student::findOrFail($id);
+            return view('student.edit', ['student' => $student]);
         }else{
-            return view('/student.register');
+            return view('student.registration');
         }
         
     }
@@ -95,7 +98,7 @@ class StudentController extends Controller
         $p = Student::findOrFail($id);
         $p->delete();
 
-        \Session::flash('status', 'Student Deleted With Succes');
+        \Session::flash('status', 'Student Deleted With Success');
         return redirect('/student');
     }
 }

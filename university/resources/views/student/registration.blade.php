@@ -73,7 +73,7 @@
                                 @endif
                             </div>
                         </div>
-                        <input type=hidden name="user_id" value=" {{ Auth::user()->id }}"> 
+                        <input type="hidden" name="user_id" value=" {{ Auth::user()->id }}"> 
                          <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                             <button type="submit" class="btn btn-primary">Register</button>

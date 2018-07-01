@@ -85,7 +85,7 @@
                 <div class="links">
                     <a href="/courses">Courses</a>
                     <a href="/student">Student Section</a>
-                    <a href="https://laravel-news.com">Admin Section</a>
+                    <a href="/admin">Admin Section</a>
                     <a href="https://github.com/MicaelPlayerBr">GitHub</a>
                 </div>
             </div>
