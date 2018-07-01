@@ -57,7 +57,6 @@ Route::get('/courses/new', function () {
     return view('/admin/courses.new');
 })->name('admin/courses/new');
 
-
 //Route::get('/student/register', function () {
  //   return view('/student.register');
 //});

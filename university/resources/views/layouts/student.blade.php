@@ -41,11 +41,7 @@
                             <a class="nav-link" href="{{ url('/student/courses') }}">{{ __('Courses') }}</a>
                         </li>
                         <li class="nav-item">
-                            <form action="{{ url('/student/register') }}" method="POST">
-                                <a class="nav-link" href="{{ url('/student/register') }}">{{ __('Registration')}}</a>
-                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                <!-- <button type="submit" name="registration" class="nav-link">{{ __('Registration')}}</button>     -->
-                            </form>
+                            <a class="nav-link" href="{{ url('/student/register') }}">{{ __('Registration')}}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/student/enrollment') }}">{{ __('Enrollment') }}</a>

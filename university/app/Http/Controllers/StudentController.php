@@ -54,16 +54,11 @@ class StudentController extends Controller
 
     public function register(Request $request) {
        
-        $p = $request->input('user_id');
+        $id = auth()->user()->id;
+        $p = DB::table('students')->select('id')->where('id_user', '=' ,$id)->get();
 
-        $id = DB::table('students')->select('students.id')->where('students.id_user', '=' ,$p)->get();
-        
-        echo $p;
-        echo $id;
-        dd($id);
-        
-        if($id){
-            $student = Student::findOrFail($id);
+        if(!$p->isEmpty()){
+            $student = Student::findOrFail($p[0]->id);
             return view('student.edit', ['student' => $student]);
         }else{
             return view('student.registration');
@@ -77,7 +72,8 @@ class StudentController extends Controller
         return view('student.delete', ['students' => $student]); 
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request) {
+        $id = $request->input('id');
         $p = Student::findOrFail($id);
         $p->name = $request->input('name');
         $p->CPF = $request->input('CPF');

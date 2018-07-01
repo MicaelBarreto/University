@@ -21,4 +21,12 @@ class CourseController extends Controller
         return view('/courses.index', ['courses' => $course]);
     }
 
+    public function StudentIndex()
+    {
+
+        $course = DB::table('courses')->select('id','name' ,'menu', 'students_amount')->get();
+
+        return view('student.courses', ['courses' => $course]);
+    }
+
 }
