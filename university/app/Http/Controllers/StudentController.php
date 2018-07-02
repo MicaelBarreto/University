@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Student;
 use App\User;
 use App\Enrollment;
+use App\Course;
 
 class StudentController extends Controller
 {
@@ -18,7 +19,7 @@ class StudentController extends Controller
     public function index()
     {
 
-        $student = DB::table('students')->select('students.id','students.name' ,'students.CPF', 'students.RG', 'students.address', 'students.cellphone')->get();
+        $student = Student::paginate(5);
 
         return view('student/index', ['students' => $student]);
     }
@@ -110,7 +111,7 @@ class StudentController extends Controller
             ->join('students', 'enrollments.id_student', '=', 'students.id')
             ->join('courses', 'enrollments.id_course', '=', 'courses.id')
             ->select('courses.name as course_name', 'students.name as student_name', 'enrollments.*')
-            ->where('enrollments.id_student' , '=', $id[0]->id)->get();
+            ->where('enrollments.id_student' , '=', $id[0]->id)->paginate(5);
 
 
             return view('student/enrollment.index', ['enrollment' => $enrollment]);
@@ -124,7 +125,7 @@ class StudentController extends Controller
     public function enrollmentNew()
     {
 
-        $courses = DB::table('courses')->select('*')->get();
+        $courses = Course::all();
 
         return view('student/enrollment.new', ['courses' => $courses]);
     }
@@ -156,7 +157,7 @@ class StudentController extends Controller
             ->select('courses.name as course_name', 'students.name as student_name', 'enrollments.*')
             ->where('enrollments.id', '=', $id)->get();
 
-        $courses = DB::table('courses')->select('*')->get();
+        $courses = Course::all();
 
         return view('student/enrollment.edit', ['row' => $row, 'courses' => $courses]);
     }

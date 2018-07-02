@@ -46,6 +46,7 @@
                             </tr>
                         @endforeach
                     </table>
+                    {{$enrollment->render()}}
                 </div>
             </div>
         </div>

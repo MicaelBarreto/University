@@ -26,6 +26,7 @@
                             </tr>
                         @endforeach
                     </table>
+                    {{$courses->render()}}
                 </div>
             </div>
         </div>

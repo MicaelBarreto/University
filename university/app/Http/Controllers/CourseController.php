@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Course;
+use App\Student;
 
 class CourseController extends Controller
 {
@@ -16,7 +17,7 @@ class CourseController extends Controller
     public function index()
     {
 
-        $course = DB::table('courses')->select('id','name' ,'menu', 'students_amount')->get();
+        $course = Course::paginate(5);
 
         return view('/courses.index', ['courses' => $course]);
     }
@@ -24,7 +25,7 @@ class CourseController extends Controller
     public function StudentIndex()
     {
 
-        $course = DB::table('courses')->select('id','name' ,'menu', 'students_amount')->get();
+        $course = Course::paginate(5);
 
         return view('student.courses', ['courses' => $course]);
     }

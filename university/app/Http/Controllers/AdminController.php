@@ -22,7 +22,7 @@ class AdminController extends Controller
     public function courseIndex()
     {
 
-        $course = DB::table('courses')->select('courses.id','courses.name' ,'courses.menu', 'courses.students_amount')->get();
+        $course = Course::paginate(5);
 
         return view('admin/courses.index', ['courses' => $course]);
     }
@@ -30,7 +30,7 @@ class AdminController extends Controller
     public function studentIndex()
     {
 
-        $student = DB::table('students')->join('users', 'users.id', '=', 'students.id_user')->select('students.*', 'users.email')->get();
+        $student = Student::paginate(5);
 
         return view('admin/student.index', ['student' => $student]);
     }
@@ -90,7 +90,7 @@ class AdminController extends Controller
         $enrollment = DB::table('enrollments')
             ->join('students', 'enrollments.id_student', '=', 'students.id')
             ->join('courses', 'enrollments.id_course', '=', 'courses.id')
-            ->select('courses.name as course_name', 'students.name as student_name', 'enrollments.*')->get();
+            ->select('courses.name as course_name', 'students.name as student_name', 'enrollments.*')->paginate(5);
 
 
         return view('admin/enrollments.index', ['enrollment' => $enrollment]);
@@ -99,8 +99,8 @@ class AdminController extends Controller
     public function enrollmentNew()
     {
 
-        $courses = DB::table('courses')->select('*')->get();
-        $students = DB::table('students')->select('*')->get();
+        $courses = Course::all();
+        $students = Student::all();
 
         return view('admin/enrollments.new', ['courses' => $courses], ['students' => $students]);
     }
@@ -145,8 +145,8 @@ class AdminController extends Controller
             ->select('courses.name as course_name', 'students.name as student_name', 'enrollments.*')
             ->where('enrollments.id', '=', $id)->get();
 
-        $courses = DB::table('courses')->select('*')->get();
-        $students = DB::table('students')->select('*')->get();
+        $courses = Course::all();
+        $students = Student::all();
 
         
 
@@ -183,7 +183,7 @@ class AdminController extends Controller
     public function userIndex()
     {
 
-        $user = DB::table('users')->select('*')->get();
+        $user = User::paginate(5);
 
 
         return view('admin/user', ['user' => $user]);
