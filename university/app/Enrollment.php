@@ -10,12 +10,12 @@ class Enrollment extends Model
         'id_student', 'id_course', 'authorization',
     ];
 
-    public function enrollStudent()
+    public function student()
     {
         return $this->hasOne('App\Student');
     }
 
-    public function enrollCourse()
+    public function course()
     {
         return $this->hasOne('App\Course');
     }

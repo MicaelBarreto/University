@@ -57,7 +57,7 @@ class StudentController extends Controller
     public function register(Request $request) {
        
         $id = auth()->user()->id;
-        $p = DB::table('students')->select('id')->where('id_user', '=' ,$id)->get();
+        $p = Student::where('id_user' ,$id)->get();
 
         if(!$p->isEmpty()){
             $student = Student::findOrFail($p[0]->id);
@@ -104,7 +104,7 @@ class StudentController extends Controller
     {
         $idU = auth()->user()->id;
 
-        $id = DB::table('students')->select('id')->where('id_user', '=' ,$idU)->get();
+        $id = Student::where('id_user', $idU)->get();
 
         if(!$id->isEmpty()){
             $enrollment = DB::table('enrollments')
@@ -113,7 +113,10 @@ class StudentController extends Controller
             ->select('courses.name as course_name', 'students.name as student_name', 'enrollments.*')
             ->where('enrollments.id_student' , '=', $id[0]->id)->paginate(5);
 
+            // $enrollment = Enrollment::with('student', 'course')->where('id_student' , $id[0]->id)->paginate(5);
 
+            // 
+ 
             return view('student/enrollment.index', ['enrollment' => $enrollment]);
         }else{
             \Session::flash('status', 'You Need to have a Student Register');
@@ -133,7 +136,7 @@ class StudentController extends Controller
     public function enrollmentStore(Request $request) 
     {
         $idU = auth()->user()->id;
-        $id = DB::table('students')->select('id')->where('id_user', '=' ,$idU)->get();
+        $id = Student::where('id_user', '=' ,$idU)->get();
 
         $p = new Enrollment;
         $p->id_student = $id[0]->id;

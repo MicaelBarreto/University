@@ -20,7 +20,6 @@
                             <th>RG</th>
                             <th>Address</th>
                             <th>Cellphone</th>
-                            <th>Email</th>
                         </tr>
                         @foreach($student as $p)
                             <tr>
@@ -30,7 +29,6 @@
                                 <td>{{ $p->RG }}</td>
                                 <td>{{ $p->address }}</td>
                                 <td>{{ $p->cellphone }}</td>
-                                <td>{{ $p->email}}</td>
                             </tr>
                         @endforeach
                     </table>

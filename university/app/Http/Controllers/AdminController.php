@@ -30,7 +30,7 @@ class AdminController extends Controller
     public function studentIndex()
     {
 
-        $student = Student::paginate(5);
+        $student = Student::with('user')->paginate(5);
 
         return view('admin/student.index', ['student' => $student]);
     }
