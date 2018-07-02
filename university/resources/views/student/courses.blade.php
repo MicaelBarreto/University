@@ -22,9 +22,7 @@
                             <tr>
                                 <td>{{ $p->id }}</td>
                                 <td>{{ $p->name }}</td>
-                                <td>
-                                    <a href="/courses/{{ $p->id }}/menu" class="btn btn-succes">Menu</a>
-                                </td>
+                                <td>{{ $p->menu}}</td>
                             </tr>
                         @endforeach
                     </table>

@@ -46,6 +46,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/admin/enrollment') }}">{{ __('Enrollments') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/admin/user') }}">{{ __('Users') }}</a>
+                        </li>
                         
                     </ul>
 

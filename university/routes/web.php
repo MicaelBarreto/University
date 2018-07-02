@@ -60,16 +60,26 @@ Route::get('/student/enrollments/{id}/delete', 'StudentController@enrollmentDele
 // Everything That Concerns to the Admin
 
 Route::middleware(['auth', 'is_admin'])->group(function () {
-    // Minhas rotas da administração aqui
-
 
     Route::get('/admin/students', 'AdminController@studentIndex')->name('admin/students');
+
+    
 
     Route::get('/admin', function () {
         return view('/admin.index');
     });
 
 
+    // Admin - User
+
+    Route::get('/admin/user', 'AdminController@userIndex')->name('admin/users');
+
+    Route::get('/user/{id}/permission', 'AdminController@userAuthorize')->name('admin/users/permit');
+
+    Route::get('/user/{id}/delete', 'AdminController@userDelete')->name('admin/users/delete');
+
+
+    //-------------
 
     // Admin - Courses
 

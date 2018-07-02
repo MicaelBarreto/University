@@ -21,7 +21,7 @@ class CreateStudentsTable extends Migration
             $table->string('address');
             $table->string('cellphone');
             $table->integer('id_user')->unsigned();
-            $table->foreign('id_user')->references('id')->on('users');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Course;
 use App\Student;
 use App\Enrollment;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -178,6 +179,47 @@ class AdminController extends Controller
         \Session::flash('status', 'Enrollment Deleted With Success');
         return redirect('/admin/enrollment');
     }
+
+    public function userIndex()
+    {
+
+        $user = DB::table('users')->select('*')->get();
+
+
+        return view('admin/user', ['user' => $user]);
+    }
+
+    public function userAuthorize($id)
+    {
+        $p = User::findOrFail($id);
+        $p->admin = 1;
+            
+        if ($p->save()) {
+            \Session::flash('status', 'User Authorized With Success');
+            return redirect('/admin/user');
+        } else {
+            \Session::flash('status', 'There was an Error');
+                return view('/admin/user');
+        }
+ 
+    }
+
+    public function userDelete($id) 
+    {
+        $p = User::findOrFail($id);
+
+        if($p->admin){
+            \Session::flash('denied', 'Operation Denied');
+            return redirect('/admin/user');
+        }else{
+            $p->delete();
+
+            \Session::flash('status', 'User Deleted With Success');
+            return redirect('/admin/user');
+        }
+        
+    }
+
 
 
 
