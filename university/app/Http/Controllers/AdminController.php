@@ -121,10 +121,10 @@ class AdminController extends Controller
     }
 
 
-    public function enrollmentAuthorize()
+    public function enrollmentAuthorize($id)
     {
-        $p = Course::findOrFail($id);
-         $p->authorization = 1;
+        $p = Enrollment::findOrFail($id);
+        $p->authorization = 1;
             
         if ($p->save()) {
             \Session::flash('status', 'Enrollment Authorizade With Success');

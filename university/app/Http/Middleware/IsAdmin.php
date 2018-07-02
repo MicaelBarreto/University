@@ -15,10 +15,10 @@ class IsAdmin
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->user()->isAdmin()) {
-            return $next($request);
+        if ($request->user()->admin == false) {
+            return redirect('/home');
+        }else{
+        return $next($request);   
         }
-        return redirect('home');
-    
     }
 }
