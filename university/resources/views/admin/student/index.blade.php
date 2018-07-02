@@ -32,6 +32,7 @@
                             </tr>
                         @endforeach
                     </table>
+                    {{$student->render()}}
                 </div>
             </div>
         </div>
