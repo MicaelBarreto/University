@@ -29,9 +29,9 @@
                             <tr>
                                 <td>{{ $p->id }}</td>
                                 <td>{{ $p->id_student }}</td>
-                                <td>{{ $p->student_name}}</td>
+                                <td>{{ $p->student['name']}}</td>
                                 <td>{{ $p->id_course }}</td>
-                                <td>{{ $p->course_name }}</td>
+                                <td>{{ $p->course['name'] }}</td>
                                 <td>
                                     @if(!($p->authorization))
                                         Unauthorized

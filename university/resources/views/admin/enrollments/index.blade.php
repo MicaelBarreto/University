@@ -14,7 +14,6 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
                     <table class="table">
                         <tr>
                             <th>ID</th>
@@ -28,10 +27,10 @@
                         @foreach($enrollment as $p)
                             <tr>
                                 <td>{{ $p->id }}</td>
-                                <td>{{ $p->id_student }}</td>
-                                <td>{{ $p->student_name}}</td>
-                                <td>{{ $p->id_course }}</td>
-                                <td>{{ $p->course_name }}</td>
+                                <td>{{ $p->student['id'] }}</td>
+                                <td>{{ $p->student['name'] }}</td>
+                                <td>{{ $p->course['id'] }}</td>
+                                <td>{{ $p->course['name'] }}</td>
                                 <td>
                                     @if(!($p->authorization))
                                         <a href="/enrollments/{{ $p->id }}/authorization" class="btn btn-primary">Authorize</a>

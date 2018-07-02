@@ -34,5 +34,10 @@ class User extends Authenticatable
         return $this->admin === self::ADMIN_TYPE;    
     }
 
+    public function student()
+    {
+        return $this->hasOne('App\Student', 'id_user', 'id');
+    }
+
     
 }

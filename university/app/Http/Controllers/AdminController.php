@@ -87,10 +87,12 @@ class AdminController extends Controller
     public function enrollmentIndex()
     {
 
-        $enrollment = DB::table('enrollments')
-            ->join('students', 'enrollments.id_student', '=', 'students.id')
-            ->join('courses', 'enrollments.id_course', '=', 'courses.id')
-            ->select('courses.name as course_name', 'students.name as student_name', 'enrollments.*')->paginate(5);
+        // $enrollment = DB::table('enrollments')
+        //     ->join('students', 'enrollments.id_student', '=', 'students.id')
+        //     ->join('courses', 'enrollments.id_course', '=', 'courses.id')
+        //     ->select('courses.name as course_name', 'students.name as student_name', 'enrollments.*')->paginate(5);
+
+        $enrollment = Enrollment::with(['student', 'course'])->paginate(5);
 
 
         return view('admin/enrollments.index', ['enrollment' => $enrollment]);
@@ -139,11 +141,13 @@ class AdminController extends Controller
 
     public function enrollmentEdit($id) 
     {
-        $row = DB::table('enrollments')
-            ->join('students', 'enrollments.id_student', '=', 'students.id')
-            ->join('courses', 'enrollments.id_course', '=', 'courses.id')
-            ->select('courses.name as course_name', 'students.name as student_name', 'enrollments.*')
-            ->where('enrollments.id', '=', $id)->get();
+        // $row = DB::table('enrollments')
+        //     ->join('students', 'enrollments.id_student', '=', 'students.id')
+        //     ->join('courses', 'enrollments.id_course', '=', 'courses.id')
+        //     ->select('courses.name as course_name', 'students.name as student_name', 'enrollments.*')
+        //     ->where('enrollments.id', '=', $id)->get();
+
+        $row = Enrollment::with(['student', 'course'])->where('id', $id)->get();
 
         $courses = Course::all();
         $students = Student::all();

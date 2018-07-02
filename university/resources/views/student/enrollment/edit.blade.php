@@ -17,9 +17,11 @@
                             <label for="name" class="col-md-5 col-form-label text-md-right">{{ __('Course') }}</label>
                             <div class="col-sm-5">
                                 <select name="id_course">';
-                                    <option value="{{$row[0]->id_course}}"> {{$row[0]->course_name}} </option>
+                                    <option value="{{$row[0]->id_course}}"> {{$row[0]->course['name']}} </option>
                                     @foreach($courses as $p)
-                                    <option value="{{$p->id}}"> {{$p->name}} </option>
+                                        @if($p->id != $row[0]->id_course)
+                                            <option value="{{$p->id}}"> {{$p->name}} </option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>

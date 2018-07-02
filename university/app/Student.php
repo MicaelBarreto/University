@@ -10,13 +10,13 @@ class Student extends Model
         'name', 'CPF', 'RG', 'address', 'cellphone', 'id_user',
     ];
     
-    public function student_enrollment()
+    public function enrollment()
     {
-        return $this->hasMany('App\Enrollment');
+        return $this->hasOne('App\Enrollment', 'id_student', 'id');
     }
 
     public function user()
     {
-        return $this->hasOne('App\User', 'id');
+        return $this->belongsTo('App\User', 'id_user', 'id');
     }
 }

@@ -12,12 +12,12 @@ class Enrollment extends Model
 
     public function student()
     {
-        return $this->hasOne('App\Student');
+        return $this->belongsTo('App\Student', 'id_student', 'id');
     }
 
     public function course()
     {
-        return $this->hasOne('App\Course');
+        return $this->belongsTo('App\Course', 'id_course', 'id');
     }
 
     
