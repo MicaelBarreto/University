@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Student;
 use App\User;
@@ -31,6 +32,20 @@ class StudentController extends Controller
 
     public function store(Request $request) 
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'CPF' => 'required|string|max:255',
+            'RG' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'cellphone' => 'required|string|max:255',
+            'user_id' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            \Session::flash('status', 'There Was an Error');
+            return view('student.registration');
+        }
+
         $p = new student;
         $p->name = $request->input('name');
         $p->CPF = $request->input('CPF');
@@ -75,6 +90,21 @@ class StudentController extends Controller
     }
 
     public function update(Request $request) {
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'CPF' => 'required|string|max:255',
+            'RG' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'cellphone' => 'required|string|max:255',
+            'user_id' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            \Session::flash('status', 'There Was an Error');
+            return view('student.edit');
+        }
+
         $id = $request->input('id');
         $p = Student::findOrFail($id);
         $p->name = $request->input('name');
@@ -135,6 +165,15 @@ class StudentController extends Controller
 
     public function enrollmentStore(Request $request) 
     {
+        $validator = Validator::make($request->all(), [
+            'id_course' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            \Session::flash('status', 'There Was an Error');
+            return view('student/enrollment/new');
+        }
+
         $idU = auth()->user()->id;
         $id = Student::where('id_user', '=' ,$idU)->get();
 
@@ -148,7 +187,7 @@ class StudentController extends Controller
             return redirect('/student/enrollment');
         } else {
             \Session::flash('status', 'There Was an Error');
-            return view('admin/enrollments/new');
+            return view('student/enrollment/new');
         }
     }
 
@@ -169,6 +208,15 @@ class StudentController extends Controller
 
     public function enrollmentUpdate(Request $request) 
     {
+        $validator = Validator::make($request->all(), [
+            'id_course' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            \Session::flash('status', 'There Was an Error');
+            return view('student/enrollment.edit');
+        }
+
         $id = $request->input('id');
         $p = Enrollment::findOrFail($id);
         $p->id_course = $request->input('id_course');

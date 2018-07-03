@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Course;
 use App\Student;
 use App\Enrollment;
@@ -37,6 +38,18 @@ class AdminController extends Controller
 
     public function courseStore(Request $request) 
     {
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'menu' => 'required|string|max:255',
+            'student_amount' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            \Session::flash('status', 'There Was an Error');
+            return view('admin/courses/new');
+        }
+
         $p = new course;
         $p->name = $request->input('name');
         $p->menu = $request->input('menu');
@@ -60,6 +73,17 @@ class AdminController extends Controller
 
     public function courseUpdate(Request $request) 
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'menu' => 'required|string|max:255',
+            'student_amount' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            \Session::flash('status', 'There Was an Error');
+            return view('admin/courses/edit');
+        }
+
         $id = $request->input('id');
         $p = Course::findOrFail($id);
         $p->name = $request->input('name');
@@ -109,6 +133,16 @@ class AdminController extends Controller
 
     public function enrollmentStore(Request $request) 
     {
+        $validator = Validator::make($request->all(), [
+            'id_student' => 'required|integer',
+            'id_course' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            \Session::flash('status', 'There Was an Error');
+            return view('admin/courses/edit');
+        }
+
         $p = new Enrollment;
         $p->id_student = $request->input('id_student');
         $p->authorization = 1;
@@ -160,6 +194,17 @@ class AdminController extends Controller
 
     public function enrollmentUpdate(Request $request) 
     {
+
+        $validator = Validator::make($request->all(), [
+            'id_student' => 'required|integer',
+            'id_course' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            \Session::flash('status', 'There Was an Error');
+            return view('admin/courses/edit');
+        }
+
         $id = $request->input('id');
         $p = Enrollment::findOrFail($id);
         $p->id_student = $request->input('id_student');
