@@ -27,12 +27,12 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    const ADMIN_TYPE = 'admin';
-    const DEFAULT_TYPE = 'default';
+    // const ADMIN_TYPE = 'admin';
+    // const DEFAULT_TYPE = 'default';
 
-    public function isAdmin()    {        
-        return $this->admin === self::ADMIN_TYPE;    
-    }
+    // public function isAdmin()    {        
+    //     return $this->admin === self::ADMIN_TYPE;    
+    // }
 
     public function student()
     {
